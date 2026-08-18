@@ -1,0 +1,11 @@
+# Bootcamp Release Gate Policy
+policy_name: Bootcamp Fail-Closed Release Gate Policy
+version: 1.0.0
+
+release_conditions:
+  require_signed_evidence: true
+  verify_merkle_root: true
+  min_passing_tests_pct: 100.0
+  allowed_drift_findings: 0
+  max_evidence_age_seconds: 3600
+  fail_closed_default: true
