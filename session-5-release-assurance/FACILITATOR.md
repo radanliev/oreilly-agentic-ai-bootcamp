@@ -1,6 +1,6 @@
 # Session 5: Evidence-Backed Release Assurance for Agentic Systems
 
-**Implementation status:** READY (from EviAssure) | **Research target:** USENIX Security
+**Implementation status:** READY (from EviAssure) | **Research target:** IEEE S&P 2027 Cycle 2 (abstract 10 Nov, paper 17 Nov 2026; EuroS&P 2027 fallback)
 
 ## Learning Outcome
 

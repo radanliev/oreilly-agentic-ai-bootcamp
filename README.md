@@ -41,7 +41,7 @@ Participants leave with **five repeatable assurance patterns** — each grounded
 | **2** | **Independent Supply-Chain Triage** | [Session 2](session-2-supply-chain-drift/) | ACM CCS 2026 | Fail-closed AIBOM drift detection across deps, containers, K8s, CI |
 | **3** | **Evaluation Design** | [Session 3](session-3-evaluation-design/) | NeurIPS 2027 E&D | Executable invariants for leakage, saturation, IRT — with honest negative results |
 | **4** | **Authority-Aware Injection Testing** | [Session 4](session-4-prompt-injection/) | IEEE S&P 2027 | Capability-based mediation for tool-using agents (Adaptive adversary A1–A6) |
-| **5** | **Evidence-Backed Release Gates** | [Session 5](session-5-release-assurance/) | USENIX Security 2027 | Cryptographic attestation, fail-closed gates, witness protocol |
+| **5** | **Evidence-Backed Release Gates** | [Session 5](session-5-release-assurance/) | IEEE S&P 2027 Cycle 2 | Cryptographic attestation, fail-closed gates, witness protocol |
 
 > **Every live segment ends with a runnable checkpoint and a saved artifact.**
 
@@ -81,7 +81,7 @@ Participants leave with **five repeatable assurance patterns** — each grounded
 - Dual SU metrics (ambient/interactive/attested)
 - Explicit TCB (Trusted Computing Base)
 
-### Pattern 5: Evidence-Backed Release Gates (USENIX)
+### Pattern 5: Evidence-Backed Release Gates (IEEE S&P 2027 Cycle 2)
 > **Cryptographic attestation, fail-closed gates, tamper-resilient audit.**
 
 - SHA-256 Merkle tree attestation (RFC 6962 domain separation)
