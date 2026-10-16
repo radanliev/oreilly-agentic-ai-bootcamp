@@ -1,0 +1,452 @@
+Bootcamp promise: Participants leave with five repeatable assurance patterns: blind commitment, independent supply-chain triage, evaluation design, authority-aware injection testing, and evidence-backed release gates. Every live segment ends with a runnable checkpoint and a saved artifact.
+
+Format
+
+Five live, hands-on sessions against blind-verification-agentic-ai; recommended 50–60 minutes per session.
+
+One verified facilitator clone plus one pre-staged offline bundle per table/participant protects the live flow from network or tool failure.
+
+Tool choice is flexible. The assurance logic is vendor-neutral; participants record the model/tool/version they actually use.
+
+Session 1 is ready; Sessions 2–4 need packaged overlays/harnesses; Session 5 is explicitly a guided build until its native implementation exists.
+
+Participant setup
+
+Clone the repository, activate the pinned environment, and run baseline tests before the bootcamp.
+
+Use synthetic local data and disposable workspaces. Do not attach production accounts, credentials, or external targets.
+
+Create a unique run folder for each session and save raw outputs before discussion.
+
+If a hosted assistant is unavailable, use the deterministic pre-recorded assessor output; the verification checkpoint remains live.
+
+Session 1 — Blind Verification & Executable Security Properties
+
+Implementation status: READY  |  Research target: Expert Systems with Applications (ESWA, Elsevier JCR Q1, submitting Oct 2026; Plan B ACM TOSEM; foundation: IEEE SaTML)
+
+Learning outcome: Commit to a predicted failure location before reveal, score the commitment after reveal, and require an executable red-to-green patch result.
+
+Repository surface
+
+Current repository, v0-clean and v1-vulnerability; conference runner, sealed study outputs, scorer, patch oracle, and artifact packager.
+
+Why this matters
+
+It turns an agent-security explanation into a falsifiable claim. The ordering—commit, reveal, score, patch—is the control that prevents hindsight from masquerading as verification.
+
+Live specimen
+
+./scripts/run_conference_demo.sh --run-id <unique-id>
+# Inspect artifacts/<unique-id>/ and the frozen result pointers
+python eval/score_patch.py --arch support --variant v1-vulnerability \
+  --patch patches/support/v1-vulnerability/fix-v1-vulnerability.diff
+
+Time-boxed live flow
+
+Time | Live action
+
+0–5 min | Frame the falsifiable claim and freeze the environment.
+
+5–18 min | Blind prediction and seal.
+
+18–30 min | Reveal and score.
+
+30–43 min | Patch oracle and negative control.
+
+43–50 min | Checkpoint and debrief.
+
+Facilitator runbook
+
+Step | Facilitator action
+
+Freeze | Record the repository commit, environment, assessor condition, model/tool configuration, prompt, and run ID. Do not expose the defect overlay.
+
+Commit | Produce a schema-valid prediction with cited files, trust boundaries, failure family, and confidence. Seal its hash before reveal.
+
+Reveal | Apply the controlled v1-vulnerability condition and preserve the reveal event separately from the prediction.
+
+Score | Calculate localization/structure recall and compare high-structure with low-structure, random, and hindsight controls.
+
+Patch | Apply a candidate unified diff in a clean workspace. The gold patch must pass; a wrong-target patch must remain red.
+
+Audit | Package raw predictions, seals, ground truth, test logs, scores, software versions, and limitations without editing failed runs.
+
+Proof frame: Current evidence supports instrument validity and benchmark separability—not general population performance. The sealed protocol study contains 80 runs; the LLM-tool arm contains 46 runs across seven tool configurations. In the primary support-v1 condition, high-structure recall is 0.80 versus 0 for low/random, while hindsight reaches 1.0. Human multi-lab arms remain open.
+
+Participant checkpoint
+
+Show the sealed prediction, the post-reveal score, and one patch-oracle result; explain why a hindsight explanation does not count.
+
+Evidence to save
+
+Sealed pre-reveal prediction and independent reveal log
+
+Ground-truth file/failure-family mapping and scorer output
+
+High/low/random/hindsight conditions with uncertainty and exact tests
+
+Gold-patch success plus wrong-target negative control
+
+Live fallback
+
+Use the frozen study outputs and a prebuilt artifact pack; rerun only the patch oracle locally.
+
+Research bridge
+
+Paper claim: blind structure improves pre-reveal localization and can be falsified by controlled baselines. Extend with preregistered human labs, additional architectures/defect families, calibration curves, and a frozen analysis script. Keep all N values sourced from machine-readable result files; several narrative files still contain older 72/22 counts and must be refreshed before submission.
+
+Session 2 — Agentic Supply-Chain & AIBOM Drift
+
+Implementation status: PARTIAL — scanner and CI control exist; teaching and study harness remain  |  Research target: ACM CCS
+
+Learning outcome: Detect and explain dependency, deployment, AIBOM, workflow, and permission drift; then evaluate whether an agent's triage is complete, correctly prioritized, and safely governed.
+
+Repository surface
+
+benchmark/variants/v2-supply-chain-drift, scripts/verify_aibom.py, signed triage approvals, CI workflow, and scanner tests.
+
+Why this matters
+
+A single ‘secure’ label hides several independent failure families. The contribution must model plausible threat surfaces and prove that triage generalizes beyond one curated example.
+
+Live specimen
+
+python scripts/verify_aibom.py --format text
+# Instructor/research overlay:
+python scripts/verify_aibom.py --root benchmark/variants/v2-supply-chain-drift --format json
+
+Time-boxed live flow
+
+Time | Live action
+
+0–7 min | Threat model and clean baseline.
+
+7–22 min | Independent dependency/AIBOM and deployment triage.
+
+22–35 min | Reconcile 11 atomic findings into three families.
+
+35–44 min | Signed exception cases.
+
+44–50 min | Checkpoint and debrief.
+
+Facilitator runbook
+
+Step | Facilitator action
+
+Baseline | Run the fail-closed scanner on the clean repository and retain the zero-open-findings report.
+
+Stage | Use an instructor-prepared workspace containing the v2 overlay; it is a directory variant, not a promised Git tag.
+
+Triage A | Have the agent assess the dependency lock and AIBOM without reading the answer key. Record finding fingerprints and severity.
+
+Triage B | Independently inspect the deployment manifest, permissions, and workflow references. Prevent the second assessor from reading Triage A.
+
+Reconcile | Map atomic findings to three ground-truth families: dependency drift, privileged/writable deployment, and AIBOM integrity.
+
+Govern | Demonstrate that only a time-limited, reviewer-attributed, HMAC-signed exception can suppress a finding; expiry or tampering must fail closed.
+
+Proof frame: The implemented scanner passes on the clean baseline and reports 11 atomic findings in the staged v2 overlay. Those findings cluster into three planted ground-truth families. This is implementation evidence, not yet a publication-ready comparative study.
+
+Participant checkpoint
+
+Submit the JSON report and identify the three defect families; demonstrate one valid and one rejected exception record.
+
+Evidence to save
+
+Clean and drifted JSON reports with stable path:line fingerprints
+
+Independent assessor outputs and reconciliation record
+
+Ground-truth family labels plus completeness/severity/conflict metrics
+
+Valid, expired, tampered, and unsigned exception cases
+
+Live fallback
+
+Use saved clean/drifted scanner JSON; validate a signed-exception fixture locally.
+
+Research bridge
+
+CCS package: state an attacker capability and end-to-end threat model; compare deterministic scanner, single-agent, independent double-triage, and human review; report recall by family, severity calibration, resolution latency, false positives, and exception abuse. Add multiple projects/ecosystems, adaptive drift, ablations, and an artifact/Open Science appendix. A few successful examples alone are not the paper.
+
+Session 3 — Evaluation Design: Structure, Leakage, Saturation & Executable Invariants
+
+Implementation status: PARTIAL — formalism, architecture assessor, ground truth, and invariants exist; evaluation-card and ablation runner remain  |  Research target: NeurIPS Evaluations & Datasets
+
+Learning outcome: Treat evaluation design—not another vulnerability—as the object of study, and show when a benchmark can or cannot support the claim made for it.
+
+Repository surface
+
+eval/bpvr_formalism.md, assessors/architecture_review.py, eval/ground_truth.yaml, invariants.yaml, and the frozen study outputs.
+
+Why this matters
+
+Evaluation can leak answers, saturate, reward vague predictions, or confuse file localization with causal understanding. A reusable protocol must expose those failure modes.
+
+Live specimen
+
+# Planned evaluation-card interface
+python eval/run_evaluation_matrix.py \
+  --conditions high,low,manual,random,hindsight \
+  --ablations source_refs,trust_boundaries,confidence \
+  --output artifacts/evaluation-card.json
+
+Time-boxed live flow
+
+Time | Live action
+
+0–8 min | Write claim/non-claim and inspect evaluation card.
+
+8–22 min | Run conditions and leak audit.
+
+22–36 min | Ablations and saturation stress.
+
+36–44 min | Interpret uncertainty/negative results.
+
+44–50 min | Checkpoint and debrief.
+
+Facilitator runbook
+
+Step | Facilitator action
+
+Claim | Write the exact construct being measured and the claims it does not support.
+
+Leak audit | Search prompts, filenames, paths, commit history, fixtures, and packaging for answer-bearing cues. Record every removed cue.
+
+Condition | Run high-structure, low-structure, manual/static, random, and hindsight controls under the same reveal and scoring rules.
+
+Ablate | Remove source references, trust-boundary structure, confidence, and patch execution one at a time.
+
+Stress | Vary defect prevalence, ambiguity, architecture, and localization granularity; look for ceiling/floor effects and metric gaming.
+
+Card | Publish the dataset/evaluation card, raw predictions, scoring implementation, uncertainty, known limitations, and intended use.
+
+Proof frame: A valid benchmark must separate informative from uninformative conditions, remain stable under harmless formatting changes, and fail visibly under leakage or metric gaming. Report negative and saturated results; they define the boundary of the evaluation.
+
+Participant checkpoint
+
+Name one leakage channel, one ablation that changes the conclusion, and one claim the benchmark cannot support.
+
+Evidence to save
+
+Claim-to-metric table with assumptions and non-claims
+
+Leakage audit and provenance/freeze record
+
+Full condition-by-variant matrix, not selected success cases
+
+Ablation effects with confidence intervals and multiple-comparison policy
+
+Live fallback
+
+Use the precomputed condition matrix; perform the claim/non-claim and leakage analysis live.
+
+Research bridge
+
+NeurIPS E&D package: make evaluation methodology the distinct contribution. Compare evaluation designs, quantify leakage and saturation, test robustness and ablations, and release a reusable protocol. Do not simply resubmit the SaTML security result with a new introduction; use Demo 1 as a cited case study inside a broader evaluation contribution.
+
+Session 4 — Prompt Injection, Tool Authority & Persistent-Memory Poisoning
+
+Implementation status: PARTIAL — memory-poison fixture, rollback verification, clean invariant test, and LLM v3 arms exist; runtime matrix remains  |  Research target: IEEE Symposium on Security and Privacy
+
+Learning outcome: Trace how untrusted content becomes persistent instruction or an authorized tool action, then test controls across genuinely different runtime architectures.
+
+Repository surface
+
+benchmark/variants/v3-poisoned-memory, app/memory, app/tools/email_draft.py, tests/test_memory_poisoning.py, and sealed LLM-tool results.
+
+Why this matters
+
+Prompt injection is consequential only when it crosses authority or persistence boundaries. The study must capture traces and side effects, not merely whether a model repeats an attack string.
+
+Live specimen
+
+pytest tests/test_memory_poisoning.py -q
+# Planned normalized trace record
+{"source":"memory","trust":"untrusted","decision":"blocked",
+ "tool":"email_draft","side_effect":false,"reason":"signature_invalid"}
+
+Time-boxed live flow
+
+Time | Live action
+
+0–8 min | Model authority/persistence boundaries.
+
+8–22 min | Run benign and injection fixtures.
+
+22–35 min | Normalize traces and apply controls.
+
+35–44 min | Adaptive variants and false refusals.
+
+44–50 min | Checkpoint and debrief.
+
+Facilitator runbook
+
+Step | Facilitator action
+
+Model | Declare assets, attacker control, user intent, tool scopes, persistence boundaries, and the prohibited side effects.
+
+Seed | Introduce unsigned or tampered memory content in the staged v3 overlay and preserve the payload hash.
+
+Exercise | Run benign, direct-injection, indirect-injection, and multi-turn persistence cases against each runtime adapter.
+
+Trace | Normalize observations into source, trust label, policy decision, tool request, authorization, side effect, and reason.
+
+Control | Compare signature verification, provenance labels, least-privilege tool scopes, confirmation, and rollback; include control combinations.
+
+Adapt | Red-team paraphrases, encoding, split payloads, delayed triggers, and benign look-alikes; retain false-refusal results.
+
+Proof frame: The clean test currently checks signed memory and rejects a known injection phrase. Conference evidence still requires an adapter matrix, side-effect oracles, adaptive attacks, benign controls, and a clear distinction between native runtime controls and wrapper-enforced controls.
+
+Participant checkpoint
+
+Show a normalized trace and the side-effect oracle for one blocked attack and one allowed benign request.
+
+Evidence to save
+
+Threat model and attack/benign fixture manifest
+
+Normalized trace plus independent side-effect oracle
+
+Attack success, control efficacy, false refusal, and persistence duration
+
+Native-runtime, wrapper, and deterministic-harness comparison
+
+Live fallback
+
+Use recorded traces; run the deterministic memory invariant and side-effect oracle live.
+
+Research bridge
+
+IEEE S&P package: emphasize a novel systems-security result about authority and persistence boundaries. Test multiple agent architectures with one trace schema; measure attack success, unauthorized side effects, false refusals, and control cost. Freeze/anonymize artifacts and disclose ethics and generative-AI use as required by the current CFP.
+
+Session 5 — Evidence-Backed Release Assurance for Agentic Systems
+
+Implementation status: READY — reference implementation, Merkle attestation and witness protocol complete  |  Research target: IEEE TDSC (submitted Oct 2026; formerly USENIX Security '27 C1)
+
+Learning outcome: Make release approval depend on fresh, attributable, policy-complete evidence rather than a persuasive narrative or a single green test suite.
+
+Repository surface
+
+Proposed repository-native scripts/assure_release.py plus evidence_manifest.yaml, release_policy.yaml, assurance_report.json, and mutation variants.
+
+Why this matters
+
+Agentic releases combine model, prompt, tool, identity, memory, dependency, and deployment evidence. A fail-open or stale-evidence gate can approve a release whose tests individually look healthy.
+
+Live specimen
+
+# Target interface to implement before teaching
+python scripts/assure_release.py \
+  --manifest evidence_manifest.yaml \
+  --policy release_policy.yaml \
+  --report assurance_report.json
+# Exit 0 only when every required item is fresh, attributable, and policy-valid.
+
+Time-boxed live flow
+
+Time | Live action
+
+0–8 min | Define policy/evidence contract.
+
+8–25 min | Implement or complete the deterministic gate.
+
+25–38 min | Run mutation corpus.
+
+38–45 min | Compare decisions/overhead.
+
+45–55 min | Checkpoint and debrief.
+
+Facilitator runbook
+
+Step | Facilitator action
+
+Specify | Define the release claim, required evidence types, owners, freshness windows, and fail-closed policy.
+
+Build | Implement a deterministic validator and JSON report before introducing an agent-generated summary.
+
+Mutate | Create isolated missing, stale, contradictory, misattributed, tampered, and policy-waived evidence variants.
+
+Decide | Compare deterministic gate, agent-assisted evidence collection, and human review without letting prose override policy.
+
+Verify | Use known-good, known-bad, and mixed manifests; check both false passes and false blocks.
+
+Measure | Record completeness, decision accuracy, time-to-decision, reviewer effort, policy coverage, and runtime overhead.
+
+Proof frame: The target artifact must produce machine-readable reasons for every pass, block, and exception. Until the script, schemas, fixtures, and tests exist, this demo remains a documented research and production plan—not a claimed implementation.
+
+Participant checkpoint
+
+Produce one policy pass and two distinct policy blocks with machine-readable reason codes.
+
+Evidence to save
+
+Versioned evidence manifest, policy, schemas, and provenance rules
+
+Deterministic assurance report with stable reason codes
+
+Known-good/bad/mixed mutation corpus and expected decisions
+
+False-pass, false-block, completeness, latency, and overhead results
+
+Live fallback
+
+Use a prebuilt validator skeleton and three local mutation fixtures; avoid improvising untested release logic on stage.
+
+Research bridge
+
+USENIX Security package: evaluate a real, repository-native release gate across multiple agentic systems and mutation families. Report operational trade-offs and negative results. The artifact must reproduce figures/tables and document which evidence can be released; USENIX's current call requires an Open Science appendix and gives the artifact a short post-submission grace period.
+
+One programme, five distinct contribution packages
+
+Portfolio rule: The five demos share infrastructure, but each proposed paper needs a different primary research question, contribution, evidence package, and venue fit. Do not submit materially overlapping manuscripts concurrently. Cross-cite related work, disclose shared data/code, and re-check the live call and policy immediately before submission.
+
+Demo | Target | Distinct contribution
+
+Demo 1 | IEEE SaTML / ESWA (Elsevier Q1; submitting Oct 2026) | Blind verification as a falsifiable security-assessment protocol; sealed commitments, localization metrics, transfer, and a patch oracle.
+
+Demo 2 | ACM CCS | Agentic software-supply-chain security: dependency, deployment, AIBOM, workflow, and exception-governance failures under a realistic threat model.
+
+Demo 3 | NeurIPS Evaluations & Datasets | Evaluation design as the contribution: leakage, saturation, structure ablations, benchmark validity, uncertainty, and reusable evaluation cards.
+
+Demo 4 | IEEE Symposium on Security and Privacy | Prompt injection, tool authority, and persistent-memory poisoning across agent runtime architectures, measured with normalized traces.
+
+Demo 5 | IEEE TDSC (submitted Oct 2026; formerly USENIX Security '27 C1) | Evidence-backed release assurance for agentic systems, including fail-closed policy gates, artifact manifests, mutation testing, and operational overhead.
+
+Evidence contract across all five demos
+
+Freeze repository commit, environment, prompts/configuration, ground truth, and analysis plan before confirmatory runs.
+
+Separate exploratory development from frozen evaluation; retain failed, null, and negative-control runs.
+
+Use multiple models/seeds and, where claimed, multiple architectures/projects; report uncertainty and practical effect sizes.
+
+Include baselines and ablations that test the mechanism, plus checks for leakage, saturation, and scorer gaming.
+
+Publish a reproducible artifact with machine-readable raw data, schemas, commands, provenance, licensing, and a limitations statement.
+
+Document ethics, safety containment, data handling, generative-AI use, anonymization, and any non-releasable artifact elements.
+
+Participant ↔ research separation: Teaching runs are formative or assessed learning activities; they are not automatically research data. Any learner/participant data used for research requires prior ethics approval, informed consent where applicable, an opt-out that does not affect learning or assessment, minimization/anonymization, and a documented separation between teaching records and the frozen study corpus.
+
+Conference planning sources: Official calls used for this planning snapshot; accessed 9 August 2026. Deadlines and policies can change.
+
+IEEE SaTML 2027 Call for Papers — https://satml.org/call-for-papers/
+
+ACM CCS 2026 Call for Papers — https://www.sigsac.org/ccs/CCS2026/call-for/call-for-papers.html
+
+NeurIPS 2026 Evaluations & Datasets Call — https://neurips.cc/Conferences/2026/CallForEvaluationsDatasets
+
+IEEE S&P 2027 Call for Papers — https://sp2027.ieee-security.org/cfpapers.html
+
+USENIX Security 2027 Call for Papers — https://www.usenix.org/conference/usenixsecurity27/call-for-papers
+
+Facilitator go/no-go checklist
+
+Run every advertised command from a clean clone and archive the exact output used in slides/handouts.
+
+Prepare offline wheels/environment, variant bundles, answer keys, deterministic fallbacks, and a reset script.
+
+Display READY/PARTIAL/PLANNED status; never narrate a proposed interface as an existing repository feature.
+
+Use current machine-readable sample counts (80 protocol; 46 LLM-tool), flag stale 72/22 narrative files, and end at the checkpoint even if an assistant fails—the lesson is the verification artifact, not the model performance.
